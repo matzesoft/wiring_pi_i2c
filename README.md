@@ -19,6 +19,7 @@ Now create the `I2CDevice`. It takes the `I2CInterface` created before and the a
 ```dart
 final addr = 0x48;
 final i2cDevice = I2CDevice(i2cInterface, addr);
+i2cDevice.setup();
 ```
 
 The `I2CDevice` is setup and ready to use. You can use all the commands mentioned in the [Wiring Pi documentation](http://wiringpi.com/reference/i2c-library/).
