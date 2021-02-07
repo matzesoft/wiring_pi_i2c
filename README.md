@@ -1,4 +1,4 @@
-### wiring_pi_i2c
+### Wiring Pi I2C
 
 Dart implementation of the Wiring Pi I2C library.
 
