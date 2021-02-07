@@ -1,6 +1,7 @@
 ### wiring_pi_i2c
 
 Dart implementation of the Wiring Pi I2C library.
+
 I mainly created this package for one of my own projects, so I haven't done a lot of testing yet. But I still hope this makes the creation of your flutter-pi app (or whatever you create) easier.
 
 ## Installing Wiring Pi
@@ -9,7 +10,7 @@ Visit this [guide](http://wiringpi.com/download-and-install/) to install the Wir
 
 ## Using the package
 
-The first thing you always want to do is to create the `I2CInterface`. You can specific a path to dynamic library, the default path is `/usr/lib/libwiringPi.so`.
+The first thing you always want to do is to create the `I2CInterface`. You can specific a path to the dynamic library, the default path is `/usr/lib/libwiringPi.so`.
 ```dart
 final i2cInterface = I2CInterface(path: '/path/to/library.so');
 ```
