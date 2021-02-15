@@ -1,7 +1,7 @@
 import 'package:wiring_pi_i2c/src/i2c_native.dart';
 
 /// Default path of the Wiring Pi library.
-const String _defaultPath = '/usr/lib/libwiringPi.so';
+const _DEFAULT_PATH = '/usr/lib/libwiringPi.so';
 
 /// Holds the instance of the Wiring Pi library.
 class I2CInterface {
@@ -14,7 +14,7 @@ class I2CInterface {
   /// to install Wiring Pi correctly.
   /// If you are using the Raspberry Pi 4B you might have to manually upgrade
   /// to version 2.52 (http://wiringpi.com/wiringpi-updated-to-2-52-for-the-raspberry-pi-4b/).
-  I2CInterface({String path: _defaultPath}) {
+  I2CInterface({String path: _DEFAULT_PATH}) {
     _native = I2CNative(path);
   }
 }
