@@ -1,39 +1,19 @@
 import 'package:wiring_pi_i2c/src/i2c_native.dart';
 
-/// Default path of the Wiring Pi library.
-const _DEFAULT_PATH = '/usr/lib/libwiringPi.so';
-
-/// Holds the instance of the Wiring Pi library.
-class I2CInterface {
-  I2CNative _native;
-
-  /// Opens the Wiring Pi library. The [path] should point to the `.so` file.
-  /// The default path is `/usr/lib/libwiringPi.so`.
-  ///
-  /// Check http://wiringpi.com/download-and-install/ on more information how
-  /// to install Wiring Pi correctly.
-  /// If you are using the Raspberry Pi 4B you might have to manually upgrade
-  /// to version 2.52 (http://wiringpi.com/wiringpi-updated-to-2-52-for-the-raspberry-pi-4b/).
-  I2CInterface({String path: _DEFAULT_PATH}) {
-    _native = I2CNative(path);
-  }
-}
-
 class I2CDevice {
-  I2CNative _native;
+  static I2CNative _native;
   int _addr;
 
   /// Linux file descriptor for the I2C device.
   int _deviceIdentifier = -1;
 
-  /// Takes a instance of the [I2CInterface] class. [addr] defines the address
-  /// of the device on the bus. You can find this address by using the command
-  /// `sudo i2cdetect -y 1`.
+  /// [addr] defines the address of the device on the bus. You can find this
+  /// address by using the command `sudo i2cdetect -y 1`.
   ///
   /// To use the I2C device you must call the [setup] method.
-  I2CDevice(I2CInterface i2c, int addr) {
-    this._addr = addr;
-    this._native = i2c._native;
+  I2CDevice(int addr) {
+    _addr = addr;
+    _native ??= I2CNative();
   }
 
   /// Address on the I2C Bus of the device.

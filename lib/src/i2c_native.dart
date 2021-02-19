@@ -3,6 +3,9 @@ import 'dart:io';
 
 /// Documentation is copied from `http://wiringpi.com/reference/i2c-library/`(19.01.2021, 11:58 CET).
 
+/// Default path of the Wiring Pi library.
+const _WIRING_PI_PATH = '/usr/lib/libwiringPi.so';
+
 /// WiringPi Native: `int wiringPiI2CSetup(int devId);`
 typedef wiring_pi_i2c_setup = Int32 Function(Int32 devId);
 typedef WiringPiI2CSetup = int Function(int devId);
@@ -59,7 +62,7 @@ class I2CNative {
   WiringPiI2CReadReg16 readReg16;
 
   /// Opens the dynamic library and looks up all Functions.
-  I2CNative(String path) {
+  I2CNative({String path: _WIRING_PI_PATH}) {
     try {
       _dylib = DynamicLibrary.open(path);
     } on ArgumentError catch (_) {

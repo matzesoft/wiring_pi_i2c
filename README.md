@@ -10,15 +10,10 @@ Visit this [guide](http://wiringpi.com/download-and-install/) to install the Wir
 
 ## Using the package
 
-The first thing you always want to do is to create the `I2CInterface`. You can specific a path to the dynamic library, the default path is `/usr/lib/libwiringPi.so`.
-```dart
-final i2cInterface = I2CInterface(path: '/path/to/library.so');
-```
-
-Now create the `I2CDevice`. It takes the `I2CInterface` created before and the address of the I2C device. You can find this address by using the command `sudo i2cdetect -y 1`. Afterwards call the `setup` method.
+The first thing todo is to create the `I2CDevice`. It takes the address of the I2C device. You can find this address by using the command `sudo i2cdetect -y 1`. Afterwards call the `setup` method.
 ```dart
 final addr = 0x48;
-final i2cDevice = I2CDevice(i2cInterface, addr);
+final i2cDevice = I2CDevice(addr);
 i2cDevice.setup();
 ```
 
