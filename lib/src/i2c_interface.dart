@@ -1,20 +1,17 @@
 import 'package:wiring_pi_i2c/src/i2c_native.dart';
 
 class I2CDevice {
-  static I2CNative _native;
-  int _addr;
-
-  /// Linux file descriptor for the I2C device.
-  int _deviceIdentifier = -1;
-
   /// [addr] defines the address of the device on the bus. You can find this
   /// address by using the command `sudo i2cdetect -y 1`.
   ///
   /// To use the I2C device you must call the [setup] method.
-  I2CDevice(int addr) {
-    _addr = addr;
-    _native ??= I2CNative();
-  }
+  I2CDevice(this._addr);
+
+  static I2CNative _native = I2CNative();
+  int _addr;
+
+  /// Linux file descriptor for the I2C device.
+  int _deviceIdentifier = -1;
 
   /// Address on the I2C Bus of the device.
   int get addr => _addr;
@@ -72,7 +69,8 @@ class I2CDevice {
   /// Writes to an 8-Bit register to the device. Throws an [I2CException] when failed.
   void writeReg8(int reg, int value) {
     _checkIfSetup();
-    // TODO: Check for values longer than 8-Bit
+    if (value > 0xFF) throw ArgumentError("value must be 8-Bit long.");
+
     final output = _native.writeReg8(_deviceIdentifier, reg, value);
     if (output < 0)
       throw I2CException(
@@ -84,7 +82,8 @@ class I2CDevice {
   /// Writes to an 16-Bit register to the device. Throws an [I2CException] when failed.
   void writeReg16(int reg, int value) {
     _checkIfSetup();
-    // TODO: Check for values longer than 16-Bit
+    if (value > 0xFFFF) throw ArgumentError("value must be 16-Bit long.");
+
     final output = _native.writeReg16(_deviceIdentifier, reg, value);
     if (output < 0)
       throw I2CException(

@@ -37,29 +37,44 @@ typedef wiring_pi_i2c_read_reg16 = Int32 Function(Int32 fd, Int32 reg);
 typedef WiringPiI2CReadReg16 = int Function(int fd, int reg);
 
 class I2CNative {
-  DynamicLibrary _dylib;
+  late DynamicLibrary _dylib;
 
   /// This initialises the I2C system with your given device identifier. The ID
   /// is the I2C number of the device and you can use the i2cdetect program to
   /// find this out. wiringPiI2CSetup() will work out which revision Raspberry Pi
   /// you have and open the appropriate device in /dev.
-  WiringPiI2CSetup setupI2C;
+  late final WiringPiI2CSetup setupI2C = _dylib
+      .lookup<NativeFunction<wiring_pi_i2c_setup>>('wiringPiI2CSetup')
+      .asFunction<WiringPiI2CSetup>();
 
   /// Simple device read. Some devices present data when you read them without
   /// having to do any register transactions.
-  WiringPiI2CRead readI2C;
+  late final WiringPiI2CRead readI2C = _dylib
+      .lookup<NativeFunction<wiring_pi_i2c_read>>('wiringPiI2CRead')
+      .asFunction<WiringPiI2CRead>();
 
   /// Simple device write. Some devices accept data this way without needing to
   /// access any internal registers.
-  WiringPiI2CWrite writeI2C;
+  late final WiringPiI2CWrite writeI2C = _dylib
+      .lookup<NativeFunction<wiring_pi_i2c_write>>('wiringPiI2CWrite')
+      .asFunction<WiringPiI2CWrite>();
 
   /// Write an 8-Bit or 16-bit data value into the device register indicated.
-  WiringPiI2CWriteReg8 writeReg8;
-  WiringPiI2CWriteReg16 writeReg16;
+  late final WiringPiI2CWriteReg8 writeReg8 = _dylib
+      .lookup<NativeFunction<wiring_pi_i2c_write_reg8>>('wiringPiI2CWriteReg8')
+      .asFunction<WiringPiI2CWriteReg8>();
+  late final WiringPiI2CWriteReg16 writeReg16 = _dylib
+      .lookup<NativeFunction<wiring_pi_i2c_write_reg16>>(
+          'wiringPiI2CWriteReg16')
+      .asFunction<WiringPiI2CWriteReg16>();
 
   /// Read an 8-Bit or 16-bit value from the device register indicated.
-  WiringPiI2CReadReg8 readReg8;
-  WiringPiI2CReadReg16 readReg16;
+  late final WiringPiI2CReadReg8 readReg8 = _dylib
+      .lookup<NativeFunction<wiring_pi_i2c_read_reg8>>('wiringPiI2CReadReg8')
+      .asFunction<WiringPiI2CReadReg8>();
+  late final WiringPiI2CReadReg16 readReg16 = _dylib
+      .lookup<NativeFunction<wiring_pi_i2c_read_reg16>>('wiringPiI2CReadReg16')
+      .asFunction<WiringPiI2CReadReg16>();
 
   /// Opens the dynamic library and looks up all Functions.
   I2CNative({String path: _WIRING_PI_PATH}) {
@@ -76,30 +91,5 @@ class I2CNative {
         path,
       );
     }
-
-    setupI2C = _dylib
-        .lookup<NativeFunction<wiring_pi_i2c_setup>>('wiringPiI2CSetup')
-        .asFunction<WiringPiI2CSetup>();
-    readI2C = _dylib
-        .lookup<NativeFunction<wiring_pi_i2c_read>>('wiringPiI2CRead')
-        .asFunction<WiringPiI2CRead>();
-    writeI2C = _dylib
-        .lookup<NativeFunction<wiring_pi_i2c_write>>('wiringPiI2CWrite')
-        .asFunction<WiringPiI2CWrite>();
-    writeReg8 = _dylib
-        .lookup<NativeFunction<wiring_pi_i2c_write_reg8>>(
-            'wiringPiI2CWriteReg8')
-        .asFunction<WiringPiI2CWriteReg8>();
-    writeReg16 = _dylib
-        .lookup<NativeFunction<wiring_pi_i2c_write_reg16>>(
-            'wiringPiI2CWriteReg16')
-        .asFunction<WiringPiI2CWriteReg16>();
-    readReg8 = _dylib
-        .lookup<NativeFunction<wiring_pi_i2c_read_reg8>>('wiringPiI2CReadReg8')
-        .asFunction<WiringPiI2CReadReg8>();
-    readReg16 = _dylib
-        .lookup<NativeFunction<wiring_pi_i2c_read_reg16>>(
-            'wiringPiI2CReadReg16')
-        .asFunction<WiringPiI2CReadReg16>();
   }
 }

@@ -1,3 +1,9 @@
+# WiringPi I2C - changelog
+
 ## 0.1.0
 
-* Initial release.
+* Initial release
+
+## 0.1.1
+
+* Null safety support
