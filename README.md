@@ -11,6 +11,7 @@ Visit this [guide](http://wiringpi.com/download-and-install/) to install the Wir
 ## Using the package
 
 The first thing todo is to create the `I2CDevice`. It takes the address of the I2C device. You can find this address by using the command `sudo i2cdetect -y 1`. Afterwards call the `setup` method.
+
 ```dart
 final addr = 0x48;
 final i2cDevice = I2CDevice(addr);
@@ -18,6 +19,7 @@ i2cDevice.setup();
 ```
 
 The `I2CDevice` is setup and ready to use. You can use all the commands mentioned in the [Wiring Pi documentation](http://wiringpi.com/reference/i2c-library/).
+
 ```dart
 final register = 0x01;
 final value = 0x8000;

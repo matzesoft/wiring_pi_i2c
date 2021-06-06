@@ -56,13 +56,19 @@ class I2CDevice {
   /// Reads a 16-Bit register from the device. Throws an [I2CException] when failed.
   int readReg16(int reg) {
     _checkIfSetup();
-    final output = _native.readReg16(_deviceIdentifier, reg);
-    if (output < 0) {
+    final data = _native.readReg16(_deviceIdentifier, reg);
+    if (data < 0) {
       throw I2CException(
         "Failed to read from 16-Bit Register '$reg' on I2C device.",
         addr,
       );
     }
+  
+    // Due to a WiringPi issue msb and lsb must be switched around.
+    final msb = (data << 8);
+    final lsb = (data >> 8);
+    final output = (msb | lsb) & 0xFFFF;
+
     return output;
   }
 
