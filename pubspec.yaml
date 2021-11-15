@@ -1,7 +1,6 @@
 name: wiring_pi_i2c
 description: Dart implementation of the Wiring Pi I2C library.
 version: 0.1.2
-author: matzesoft
 
 environment:
   sdk: ">=2.12.0 <3.0.0"
